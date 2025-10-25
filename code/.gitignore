@@ -5,7 +5,7 @@ weights_vit/*
 .idea/*
 
 # Python cache
-__pycache__/
+code/__pycache__/
 *.py[cod]
 
 # macOS system files
