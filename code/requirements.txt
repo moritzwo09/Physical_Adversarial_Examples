@@ -1,0 +1,11 @@
+pytorch-ood
+torch
+torchvision
+foolbox
+scikit-learn
+ipykernel
+pandas
+matplotlib
+tqdm
+numpy
+seaborn

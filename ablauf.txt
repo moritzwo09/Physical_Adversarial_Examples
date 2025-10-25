@@ -1,0 +1,34 @@
+###################### Grundidee #########################
+
+1. Adversarial Examples ausdrucken und testen, ob sie nach Wiederaufnahme immer noch adversarial sind
+2. andere Angriffsarten versuchen, die tatsächliche Veränderungen (nicht nur rauschen) verursachen - wahrscheinlich basierend auf dem Expectation over Transformation Framework oder Robust Physical Perturbations
+3. Evaluation von Gegenmaßnahmen
+
+##################### Meeting 17.10. #####################
+
+
+- Vorher normale Schilder ausdrucken und schauen wie gut das Netz die Schilder erkennt als Baseline
+- mit Stoppschildern anfangen evtl ein weiteres Schild
+- Mal nachschaue welches Format die Bilder haben und mit welchem Drucker und auf welches Material gedruckt wurde
+
+- dann Expectation over Transformation
+
+- Gegenmaßnahme: LogicOOD
+
+
+
+
+
+
+
+########### Fragen ##############
+1. wie funktioniert das mit der Größe der Bilder?
+ - Auf welcher Größe druckt man sie aus? 64x64? 512x512?
+ - Resized man sie, wenn das Modell sie klassifizieren soll?
+ => Lösung: Morgilus et al referencing DARTS:
+    1. have high-res image and generate mask which include only the sign
+    2. resize both mask and image to classifiers input dimensions (32x32).
+    3. do adv. attack
+    4. resize perturbation and add to original image
+
+

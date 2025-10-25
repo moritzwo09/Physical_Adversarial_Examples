@@ -1,0 +1,5 @@
+GTSRB/*
+weights_wideresnet/*
+weights_resnet-18/*
+weights_vit/*
+.idea/*
