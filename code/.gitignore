@@ -3,3 +3,10 @@ weights_wideresnet/*
 weights_resnet-18/*
 weights_vit/*
 .idea/*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# macOS system files
+.DS_Store
