@@ -3,5 +3,3 @@ weights_wideresnet/*
 weights_resnet-18/*
 weights_vit/*
 .idea/*
-.DS_Store
-__pycache__/*
