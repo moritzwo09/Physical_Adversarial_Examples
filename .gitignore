@@ -1,0 +1,15 @@
+code/GTSRB/Meta
+code/weights_wideresnet/*
+code/weights_resnet-18/*
+weights_vit/*
+.idea/*
+code/64x64/*
+
+code/GTSRB/*
+
+# Python cache
+code/__pycache__/
+
+
+# macOS system files
+.DS_Store
