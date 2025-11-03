@@ -17,10 +17,6 @@
 
 
 
-
-
-
-
 ########### Fragen ##############
 1. wie funktioniert das mit der Größe der Bilder?
  - Auf welcher Größe druckt man sie aus? 64x64? 512x512?
@@ -30,5 +26,38 @@
     2. resize both mask and image to classifiers input dimensions (32x32).
     3. do adv. attack
     4. resize perturbation and add to original image
+
+
+############################## Was gemacht? ####################################
+
+1.Versuch
+
+- Bilder auf 1200x1200 auf DIN-A4 ausgedruckt. 
+- Die Bilder an die Tür geklebt und mit einem Abstand von 1-4 Metern Fotos gemacht (mit drehen der Kamera) (mitten am Tag - hell)
+- Bilder auf MacBook gesendet (airdrop)
+- die .HEIC files in png umgewandelt (imagemagick) oder als png angezeigt (pillow_heif)
+=> die Qualität war viel zu schlecht, es war viel zu weit weg
+
+Idee: erst mal irgendwie zum Laufen bringen, deshalb einfache Bilder von nah dran
+Schwierigkeit: low-res Bilder auf DINA-4 drucken, und dann abfotografieren und dann wieder runterskalieren, damit das Modell das nutzen kann
+
+
+2. Versuch
+
+- Bilder auf 1200x1200 auf DIN-A4 ausgedruckt. 
+- Bilder an die Tür geklebt und von sehr nah (3 Fotos pro Bild aus verschiedenen Weiten ca. 30-50cm entfernt) abfotografieren (Zimmerlicht, weil dunkel)
+- Bilder auf MacBook senden (Airdrop)
+- die .HEIC files in png umgewandelt (imagemagick) oder als png angezeigt (pillow_heif)
+=> besser
+
+Resultat nach Prediction:
+- 66% accuracy
+- er tut sich schwer mit den Bildern, die etwas weiter weg sind. Von denen, die nah dran sind hat er alle richtig erkannt
+- fast alle von denen, die am weitesten weg waren hat er nicht erkannt
+- von den mittelweiten hat er manche nicht erkannt
+############################ Mask erstellen ###################################
+
+- Anlehnung an https://github.com/evtimovi/
+
 
 
