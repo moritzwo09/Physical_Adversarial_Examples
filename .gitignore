@@ -4,7 +4,7 @@ code/weights_resnet-18/*
 weights_vit/*
 .idea/*
 code/64x64/*
-
+code/phys_imgs/*
 code/GTSRB/*
 
 # Python cache
