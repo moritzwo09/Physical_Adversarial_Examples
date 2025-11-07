@@ -55,9 +55,22 @@ Resultat nach Prediction:
 - er tut sich schwer mit den Bildern, die etwas weiter weg sind. Von denen, die nah dran sind hat er alle richtig erkannt
 - fast alle von denen, die am weitesten weg waren hat er nicht erkannt
 - von den mittelweiten hat er manche nicht erkannt
+
 ############################ Mask erstellen ###################################
 
 - Anlehnung an https://github.com/evtimovi/
+
+
+################################# Meeting 04.11. #############################
+die Bilder, die weiter weg sind haben evtl zu viel Rand, deswegen:
+=> Bilder zurecht croppen - https://github.com/IDEA-Research/GroundingDINO
+- gibt bounding boxes zurück
+
+Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber nicht weit, da Bilder zu low-res
+
+- hochauflösende Bilder aus dem Internet ziehen
+
+- für Masken erstellen: https://github.com/IDEA-Research/Grounded-SAM-2
 
 
 

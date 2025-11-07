@@ -10,6 +10,6 @@ code/GTSRB/*
 # Python cache
 code/__pycache__/
 
-
+.gitmodules
 # macOS system files
 .DS_Store
