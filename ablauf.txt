@@ -80,3 +80,6 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 - "Foto"
 - "only the Photography"
 - "only the Paper with the foto on it" mit Box-Threshold ist perfekt
+
+=> The images with the bounding boxes were cropped and saved as well
+=> I classified the cropped images and it was able to classify with 100% accuracy

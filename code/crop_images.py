@@ -29,7 +29,7 @@ def get_boxes():
     text_threshold = 0.25
 
     # Startnummer
-    count = 9566
+    count = 0
 
     for img_path in sorted(INPUT_DIR.glob("*.png")):
         print(f"Processing {img_path.name} ...")
