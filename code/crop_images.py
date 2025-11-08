@@ -9,6 +9,7 @@ import time
 # Verzeichnisse
 INPUT_DIR = Path("./phys_imgs/png/")
 OUTPUT_DIR = Path("./output/bb/")
+CROPPED_OUTPUT_DIR = Path("./output/crops/")
 OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
 # GroundingDINO-Modell laden
@@ -57,6 +58,28 @@ def get_boxes():
         # Ausgabe speichern
         output_path = OUTPUT_DIR / f"IMG_{count}_bb.jpg"
         cv2.imwrite(str(output_path), annotated_frame)
+
+        # Beispiel: eine Box aus predict()
+        box = boxes[0]  # [cx, cy, w, h]
+        cx, cy, w, h = box.tolist()
+
+        # Größe des Bildes ermitteln
+        height, width = image_source.shape[:2]
+
+        # relative Werte in absolute Pixel umrechnen
+        x1 = int((cx - w / 2) * width)
+        y1 = int((cy - h / 2) * height)
+        x2 = int((cx + w / 2) * width)
+        y2 = int((cy + h / 2) * height)
+
+        # auf gültige Bereiche begrenzen
+        x1, y1 = max(x1, 0), max(y1, 0)
+        x2, y2 = min(x2, width), min(y2, height)
+
+        # Bild zuschneiden
+        crop = image_source[y1:y2, x1:x2]
+        crop = cv2.cvtColor(crop, cv2.COLOR_RGB2BGR)
+        cv2.imwrite(f"{CROPPED_OUTPUT_DIR}/cropped_{count}.jpg", crop)
 
         count += 1
 
