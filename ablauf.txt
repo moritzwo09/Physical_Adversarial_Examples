@@ -73,4 +73,10 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 - für Masken erstellen: https://github.com/IDEA-Research/Grounded-SAM-2
 
 
+########################### Grounding DINO #################################
 
+- verschiedene Prompts ausprobiert. Häufig macht er mehrere bounding boxes. verschiedene Thresholds ausprobiert (35 == 40)
+- "traffic sing"
+- "Foto"
+- "only the Photography"
+- "only the Paper with the foto on it" mit Box-Threshold ist perfekt
