@@ -56,8 +56,12 @@ def get_boxes():
         )
 
         # Ausgabe speichern
-        output_path = OUTPUT_DIR / f"IMG_{count}_bb.jpg"
-        cv2.imwrite(str(output_path), annotated_frame)
+        if count < 10:
+            output_path = OUTPUT_DIR / f"IMG_0{count}_bb.jpg"
+            cv2.imwrite(str(output_path), annotated_frame)
+        else:
+            output_path = OUTPUT_DIR / f"IMG_{count}_bb.jpg"
+            cv2.imwrite(str(output_path), annotated_frame)
 
         # Beispiel: eine Box aus predict()
         box = boxes[0]  # [cx, cy, w, h]
@@ -79,7 +83,10 @@ def get_boxes():
         # Bild zuschneiden
         crop = image_source[y1:y2, x1:x2]
         crop = cv2.cvtColor(crop, cv2.COLOR_RGB2BGR)
-        cv2.imwrite(f"{CROPPED_OUTPUT_DIR}/cropped_{count}.jpg", crop)
+        if count < 10:
+            cv2.imwrite(f"{CROPPED_OUTPUT_DIR}/cropped_0{count}.jpg", crop)
+        else:
+            cv2.imwrite(f'{CROPPED_OUTPUT_DIR}/cropped_{count}.jpg', crop)
 
         count += 1
 

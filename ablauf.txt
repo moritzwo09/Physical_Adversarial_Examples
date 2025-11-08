@@ -83,3 +83,10 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 
 => The images with the bounding boxes were cropped and saved as well
 => I classified the cropped images and it was able to classify with 100% accuracy
+
+=> Bilder von ca. 1m Entfernung aufgenommen und das hat auch funktioniert
+
+=> dann habe ich 5 Bilder pro Foto gemacht, wo ich von einer Entfernung von ca. 3 - 0,5m mich auf die Fotos zubewegt habe
+=> die Bilder mit magick in PNG umgewandelt (hat ca. 2 min gedauert)
+=> die 25 Bilder mit GroundingDINO gecroppt (hat 93s gedauert)
+=> dann predicted: auch alles korrekt (100% accuracy)
