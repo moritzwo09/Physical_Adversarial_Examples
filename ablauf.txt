@@ -72,7 +72,7 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 
 - für Masken erstellen: https://github.com/IDEA-Research/Grounded-SAM-2
 
-
+###################################################################################################################
 ########################### Grounding DINO #################################
 
 - verschiedene Prompts ausprobiert. Häufig macht er mehrere bounding boxes. verschiedene Thresholds ausprobiert (35 == 40)
@@ -90,3 +90,17 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 => die Bilder mit magick in PNG umgewandelt (hat ca. 2 min gedauert)
 => die 25 Bilder mit GroundingDINO gecroppt (hat 93s gedauert)
 => dann predicted: auch alles korrekt (100% accuracy)
+
+############################# SAM ##########################################
+
+- Ich habe versucht masken zu generieren, die alles andere außer das Bild maskieren, das hat aber nicht gut funktioniert
+- bei den Bildern, die von weiter weg aufgenommen worden, hat er entweder die Tür segmentiert oder Garbage
+- bei Bilder, die von näher dran gemacht worden sind, hat es ganz gut funktioniert
+
+
+################################# Ressourcen ################################
+adversarial-robustness-toolbox: https://adversarial-robustness-toolbox.readthedocs.io/en/latest/modules/attacks/evasion.html#adversarial-patch-pytorch
+1. GRAPHITE (blackbox oder whitebox)
+2. ShapeShifter Attack - Tensorflow
+3. Robust DPatch
+4. Adversarial Patch

@@ -10,3 +10,5 @@ tqdm
 numpy
 seaborn
 pillow-heif
+transformers
+accelerate

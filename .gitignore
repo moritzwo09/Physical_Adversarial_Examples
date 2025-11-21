@@ -10,8 +10,9 @@ code/GTSRB/*
 # Python cache
 code/__pycache__/
 
-GroundingDINO/*
+/GroundingDINO/*
 
 .gitmodules
 # macOS system files
 .DS_Store
+
