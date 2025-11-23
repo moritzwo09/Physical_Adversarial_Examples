@@ -94,8 +94,18 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 ############################# SAM ##########################################
 
 - Ich habe versucht masken zu generieren, die alles andere außer das Bild maskieren, das hat aber nicht gut funktioniert
-- bei den Bildern, die von weiter weg aufgenommen worden, hat er entweder die Tür segmentiert oder Garbage
-- bei Bilder, die von näher dran gemacht worden sind, hat es ganz gut funktioniert
+- Ich habe versucht immer die Mitte des Bildes zu fokussieren
+- hat manchmal funktioniert, oft nicht so
+
+=> ist vermutlich völlig unnötig gewesen, weil ich die digitalen Bilder angreifen muss und die dann ausdrucken.
+
+Mögliches Vorgehen:
+
+1. die gecropten Bilder von Grounding DINO nehmen
+2. mit SAM Masken für diese generieren
+3. Robust Adversarial Attacks auf die maskierten Bilder
+4. Perturbation-Masken auf Originalgröße hochskalieren und auf die Original-Bilder raufklatschen
+5. nochmal ausdrucken und abfotografieren
 
 
 ################################# Ressourcen ################################
