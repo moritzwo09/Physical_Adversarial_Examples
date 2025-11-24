@@ -6,6 +6,7 @@ weights_vit/*
 code/64x64/*
 code/phys_imgs/*
 code/GTSRB/*
+code/useless/sam_outputs.pt
 
 # Python cache
 code/__pycache__/

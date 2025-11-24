@@ -12,7 +12,7 @@ print("Using:", device)
 model = SamModel.from_pretrained("facebook/sam-vit-base").to(device)
 processor = SamProcessor.from_pretrained("facebook/sam-vit-base")
 
-png_folder = "phys_imgs/png"
+png_folder = "digital_imgs"
 png_files = sorted(glob.glob(os.path.join(png_folder, "*.png")))
 
 all_masks = []
@@ -23,11 +23,14 @@ for path in png_files:
     img = Image.open(path).convert("RGB")
     w, h = img.size
 
-    point = [[[w // 2, h // 2]]] # calculate the center for every image and take that as the point the focus on
+    box = [[
+        [int(0.1 * w), int(0.1 * h)],  # top-left
+        [int(0.9 * w), int(0.9 * h)]  # bottom-right
+    ]]
 
     inputs = processor(
         img,
-        input_points=point,
+        input_boxes=box,
         return_tensors="pt"
     )
 
