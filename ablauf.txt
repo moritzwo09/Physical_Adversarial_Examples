@@ -75,8 +75,8 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 ###################################################################################################################
 ########################### Grounding DINO #################################
 
-- verschiedene Prompts ausprobiert. Häufig macht er mehrere bounding boxes. verschiedene Thresholds ausprobiert (35 == 40)
-- "traffic sing"
+- verschiedene Prompts ausprobiert. Häufig macht er mehrere bounding boxes. verschiedene Thresholds ausprobiert (35 => 40)
+- "traffic sign"
 - "Foto"
 - "only the Photography"
 - "only the Paper with the foto on it" mit Box-Threshold ist perfekt
@@ -101,7 +101,7 @@ Problem: wenn das funktioniert kann man vielleicht etwas weiter weggehen, aber n
 
 Mögliches Vorgehen:
 
-1. die gecropten Bilder von Grounding DINO nehmen
+1. digital images nehmen
 2. mit SAM Masken für diese generieren
 3. Robust Adversarial Attacks auf die maskierten Bilder
 4. Perturbation-Masken auf Originalgröße hochskalieren und auf die Original-Bilder raufklatschen
@@ -110,7 +110,7 @@ Mögliches Vorgehen:
 
 ################################# Ressourcen ################################
 adversarial-robustness-toolbox: https://adversarial-robustness-toolbox.readthedocs.io/en/latest/modules/attacks/evasion.html#adversarial-patch-pytorch
-1. GRAPHITE (blackbox oder whitebox)
+1. GRAPHITE (blackbox oder whitebox) https://github.com/Trusted-AI/adversarial-robustness-toolbox/blob/main/examples/get_started_pytorch.py
 2. ShapeShifter Attack - Tensorflow
 3. Robust DPatch
 4. Adversarial Patch
