@@ -114,3 +114,5 @@ adversarial-robustness-toolbox: https://adversarial-robustness-toolbox.readthedo
 2. ShapeShifter Attack - Tensorflow
 3. Robust DPatch
 4. Adversarial Patch
+
+sacct -j 1552440 --format=JobID,State,Elapsed

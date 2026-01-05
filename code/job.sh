@@ -34,21 +34,15 @@ else
 fi
 
 # ==== Debug: Check Virtual Environment ====
-echo "=== Virtual Environment Debug ==="
 if [ -z "$VIRTUAL_ENV" ]; then
     echo "❌ No virtual environment active!"
 else
     echo "✅ Virtual environment active at: $VIRTUAL_ENV"
 fi
-echo "Python path: $(which python)"
-echo "Pip path: $(which pip)"
 echo "================================="
 
-# ==== Confirm Installation ====
-echo "=== Python Version ==="
-python --version
 echo "=== Torch Check ==="
 python -c "import torch; print('Torch:', torch.__version__, '| CUDA Available:', torch.cuda.is_available())"
 
 # ==== Run script ====
-srun python "$HOME/code/create_segments.py"
+srun python "$HOME/code/physical_attack.py"
