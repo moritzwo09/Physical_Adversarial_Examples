@@ -13,3 +13,4 @@ pillow-heif
 transformers
 accelerate
 adversarial_robustness_toolbox
+kornia
