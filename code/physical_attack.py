@@ -12,6 +12,7 @@ from pytorch_ood.utils import ToRGB
 from gtsrb import GTSRB
 from pathlib import Path
 from PIL import Image
+from tqdm import tqdm
 import numpy as np
 
 trans = Compose([
@@ -82,8 +83,31 @@ accuracy = np.mean(pred_classes == test_labels)
 print(f"Accuracy on val set: {accuracy * 100:.2f}%", flush=True)
 
 print("Start der Berechnung:", flush=True)
-attack = GRAPHITEWhiteboxPyTorch(classifier=classifier, net_size=(64, 64), num_xforms=10)
-x_test_adv = attack.generate(x=x_test_np, y=y_test_np)
+attack = GRAPHITEWhiteboxPyTorch(
+    classifier=classifier,
+    net_size=(64, 64),
+    num_xforms=10,
+    first_steps=20,
+    steps=10,
+    rotation_range=(-10, 10),
+    blur_kernels=(0, 1),
+    num_patches_to_remove=1,
+    batch_size=8,
+)
+
+x_adv_list = []
+
+# generate examples one by one
+for i in tqdm(range(len(x_test_np)), desc="GRAPHITE attack"):
+    x_i = x_test_np[i:i+1]   # Shape (1, C, H, W)
+    y_i = y_test_np[i:i+1]
+
+    x_adv_i = attack.generate(x=x_i, y=y_i)
+    print("Generated!", flush=True)
+    x_adv_list.append(x_adv_i)
+
+x_test_adv = np.concatenate(x_adv_list, axis=0)
+
 predictions = classifier.predict(x_test_adv)
 accuracy_test = np.mean(pred_classes == test_labels)
 print(f"Accuracy on test set: {accuracy_test * 100:.2f}%", flush=True)

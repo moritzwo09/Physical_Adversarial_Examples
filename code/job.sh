@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --time=0-04:10:00
+#SBATCH --time=0-23:00:00
 #SBATCH --job-name=logicood_adversarial
 #SBATCH --partition=gpu-stud
 #SBATCH --gpus=1
