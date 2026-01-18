@@ -7,10 +7,10 @@ import time
 
 ################################## get bounding boxes #################################
 # Verzeichnisse
-INPUT_DIR = Path("./phys_imgs/png/")
-OUTPUT_DIR = Path("./output/bb/")
-CROPPED_OUTPUT_DIR = Path("./output/crops/")
-OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
+INPUT_DIR = Path("phys_imgs/png/")
+#OUTPUT_DIR = Path("output/bb/")
+CROPPED_OUTPUT_DIR = Path("output/crops/")
+CROPPED_OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
 # GroundingDINO-Modell laden
 model = load_model(
@@ -56,13 +56,14 @@ def get_boxes():
         )
 
         # Ausgabe speichern
+        """
         if count < 10:
             output_path = OUTPUT_DIR / f"IMG_0{count}_bb.jpg"
             cv2.imwrite(str(output_path), annotated_frame)
         else:
             output_path = OUTPUT_DIR / f"IMG_{count}_bb.jpg"
             cv2.imwrite(str(output_path), annotated_frame)
-
+        """
         # Beispiel: eine Box aus predict()
         box = boxes[0]  # [cx, cy, w, h]
         cx, cy, w, h = box.tolist()
