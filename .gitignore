@@ -7,13 +7,16 @@ code/64x64/*
 code/phys_imgs/*
 code/GTSRB/*
 code/useless/sam_outputs.pt
+code/.idea/*
+code/sam_outputs.pt
 
 # Python cache
 code/__pycache__/
-
-/GroundingDINO/*
+/GroundingDINO/
 
 .gitmodules
 # macOS system files
 .DS_Store
 
+/anmeldung-individualprohekt-moritz.pdf
+/meeting_19-01-26.pdf

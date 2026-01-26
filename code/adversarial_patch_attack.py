@@ -1,4 +1,4 @@
-from art.attacks.evasion import GRAPHITEWhiteboxPyTorch
+from art.attacks.evasion import AdversarialPatchPyTorch
 from art.estimators.classification import PyTorchClassifier
 
 from torchvision.transforms import ToTensor, Resize, Compose
@@ -79,20 +79,21 @@ print("Test:", flush=True)
 predictions = classifier.predict(x_test_np)
 pred_classes = np.argmax(predictions, axis=1)
 accuracy = np.mean(pred_classes == test_labels)
-print(f"Accuracy on val set: {accuracy * 100:.2f}%", flush=True)
+val_percent = float(accuracy) * 100.0
+print(f"Accuracy on val set: {val_percent:.2f}%", flush=True)
 
 print("Start der Berechnung:", flush=True)
-attack = GRAPHITEWhiteboxPyTorch(
-    classifier=classifier,
-    net_size=(64, 64),
-    num_xforms=1,
-    first_steps=2,
-    steps=2,
-    rotation_range=(0, 0),
-    gamma_range=(1.0, 1.0),
-    num_patches_to_remove=1,
+attack = AdversarialPatchPyTorch(
+    estimator=classifier,
+    patch_shape=(3, 32, 32),
+    max_iter=200,
+    learning_rate=0.03,
     batch_size=1,
-    min_tr=0.5
+    scale_min=0.1,
+    scale_max=0.3,
+    rotation_max=22.5,
+    targeted=False,
+    verbose=False,
 )
 
 x_adv_list = []
@@ -109,8 +110,10 @@ for i in tqdm(range(len(x_test_np)), desc="GRAPHITE attack"):
 x_test_adv = np.concatenate(x_adv_list, axis=0)
 
 predictions = classifier.predict(x_test_adv)
-accuracy_test = np.mean(pred_classes == test_labels)
-print(f"Accuracy on test set: {accuracy_test * 100:.2f}%", flush=True)
+pred_classes_adv = np.argmax(predictions, axis=1)
+accuracy_test = np.mean(pred_classes_adv == test_labels)
+test_percent = float(accuracy_test) * 100.0
+print(f"Accuracy on test set: {test_percent:.2f}%", flush=True)
 
 out = {
     "x_adv": torch.from_numpy(x_test_adv),
