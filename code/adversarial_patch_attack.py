@@ -13,6 +13,7 @@ from pathlib import Path
 from PIL import Image
 from tqdm import tqdm
 import numpy as np
+import time
 
 trans = Compose([
             ToRGB(),
@@ -45,16 +46,23 @@ images = torch.stack(images)
 labels = [16, 1, 38, 11, 33, 18, 9, 13, 34, 2, 7, 13, 26, 15, 28, 3]
 labels = np.array(labels)
 
+sam_masks = Path("sam_masks")
+mask_imgs = []
+for mask_path in sorted(sam_masks.glob("*.png")):
+    mask_img = Image.open(mask_path).convert("L")
+    mask_img = mask_img.resize((64, 64))
+    mask_np = np.array(mask_img)
+    # black = traffic sign; True means allowed patch center
+    mask_imgs.append(mask_np < 128)
+mask_imgs = np.stack(mask_imgs)
+
 images = images.to(device)
 
 # vorher mischen, sonst bleibt die Reihenfolge
 perm = torch.randperm(len(images))
 images = images[perm]
 labels = labels[perm.numpy()]
-
-# Splits
-train_imgs, train_labels = images[:8], labels[:8]
-test_imgs,  test_labels  = images[8:], labels[8:]
+mask_imgs = mask_imgs[perm.numpy()]
 
 
 model = resnet18_model
@@ -72,53 +80,52 @@ classifier = PyTorchClassifier(
 )
 
 #classifier.fit(train_imgs, train_labels, batch_size=batch_size, nb_epochs=3)
-x_test_np = test_imgs.detach().cpu().numpy()
-y_test_np = test_labels.astype(np.int64)
-
-print("Test:", flush=True)
-predictions = classifier.predict(x_test_np)
-pred_classes = np.argmax(predictions, axis=1)
-accuracy = np.mean(pred_classes == test_labels)
-val_percent = float(accuracy) * 100.0
-print(f"Accuracy on val set: {val_percent:.2f}%", flush=True)
+x_np = images.detach().cpu().numpy()
+y_np = labels.astype(np.int64)
 
 print("Start der Berechnung:", flush=True)
+start_time = time.time()
+
 attack = AdversarialPatchPyTorch(
     estimator=classifier,
-    patch_shape=(3, 32, 32),
+    patch_shape=(3, 16, 16),
     max_iter=200,
     learning_rate=0.03,
     batch_size=1,
-    scale_min=0.1,
-    scale_max=0.3,
+    scale_min=0.25,
+    scale_max=0.25,
     rotation_max=22.5,
     targeted=False,
     verbose=False,
 )
 
-x_adv_list = []
+# learn one universal patch
+print("Lerne Patch...", flush=True)
+patch, patch_mask = attack.generate(x=x_np, y=y_np, mask=mask_imgs)
+print(f"Patch gelernt. patch shape={patch.shape}, patch mask shape={patch_mask.shape}", flush=True)
 
-# generate examples one by one
-for i in tqdm(range(len(x_test_np)), desc="GRAPHITE attack"):
-    x_i = x_test_np[i:i+1]   # Shape (1, C, H, W)
-    y_i = y_test_np[i:i+1]
+# apply patch to all images -> 64x64 output
+scale = 16 / 64
+x_test_adv = attack.apply_patch(x_np, scale=scale, patch_external=patch, mask=mask_imgs)
 
-    x_adv_i = attack.generate(x=x_i, y=y_i)
-    print("Generated!", flush=True)
-    x_adv_list.append(x_adv_i)
+x_test_adv = x_test_adv.astype(np.float32)
 
-x_test_adv = np.concatenate(x_adv_list, axis=0)
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Berechnung beendet. Dauer: {elapsed_time:.2f} Sekunden ({elapsed_time/60:.2f} Minuten)", flush=True)
+
+print(f"Shape of x_test_adv: {x_test_adv.shape}, shape of y_np: {y_np.shape}", flush=True)
 
 predictions = classifier.predict(x_test_adv)
 pred_classes_adv = np.argmax(predictions, axis=1)
-accuracy_test = np.mean(pred_classes_adv == test_labels)
+accuracy_test = np.mean(pred_classes_adv[:len(y_np)] == y_np)
 test_percent = float(accuracy_test) * 100.0
-print(f"Accuracy on test set: {test_percent:.2f}%", flush=True)
+print(f"Accuracy on adversarial examples: {test_percent:.2f}%", flush=True)
 
 out = {
     "x_adv": torch.from_numpy(x_test_adv),
-    "x_orig": torch.from_numpy(x_test_np),
-    "y": torch.from_numpy(y_test_np),
+    "x_orig": torch.from_numpy(x_np),
+    "y": torch.from_numpy(y_np),
 }
 
-torch.save(out, "graphite_adv.pt")
+torch.save(out, "adversarial_patch_adv.pt")

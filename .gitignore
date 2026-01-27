@@ -8,7 +8,9 @@ code/phys_imgs/*
 code/GTSRB/*
 code/useless/sam_outputs.pt
 code/.idea/*
+.vscode/*
 code/sam_outputs.pt
+code/adversarial_patch_adv.pt
 
 # Python cache
 code/__pycache__/
