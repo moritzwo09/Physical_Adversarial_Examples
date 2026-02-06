@@ -65,6 +65,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.01)
 classifier = PyTorchClassifier(
     model=model,
     clip_values=(0.0, 1.0),
+    device_type = "gpu" if torch.cuda.is_available() else "cpu",
     loss=criterion,
     optimizer=optimizer,
     input_shape=(3, 64, 64),
