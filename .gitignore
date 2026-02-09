@@ -1,24 +1,14 @@
-code/GTSRB/Meta
-code/weights_wideresnet/*
-code/weights_resnet-18/*
-weights_vit/*
-.idea/*
-code/64x64/*
-code/phys_imgs/*
-code/GTSRB/*
-code/useless/sam_outputs.pt
-code/.idea/*
 .vscode/*
 code/sam_outputs.pt
 code/adversarial_patch_adv.pt
 
 # Python cache
 code/__pycache__/
-/GroundingDINO/
 
 .gitmodules
 # macOS system files
 .DS_Store
+code/64x64/*
 
 /anmeldung-individualprohekt-moritz.pdf
 /meeting_19-01-26.pdf

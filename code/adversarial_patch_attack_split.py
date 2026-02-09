@@ -37,7 +37,6 @@ trans = Compose([
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device, flush=True)
 
-train_data = GTSRB(root=".", train=True, transforms=trans)
 test_data = GTSRB(root=".", train=False, transforms=trans)
 
 
@@ -61,10 +60,15 @@ def collect_samples(dataset, num_samples, shuffle):
 
 
 # -----------------------------
-# Load data
+# Load data (use only Test set; split into train/test without overlap)
 # -----------------------------
-train_x, train_y = collect_samples(train_data, TRAIN_SAMPLES, shuffle=True)
-test_x, test_y = collect_samples(test_data, TEST_SAMPLES, shuffle=False)
+total_needed = TRAIN_SAMPLES + TEST_SAMPLES
+all_x, all_y = collect_samples(test_data, total_needed, shuffle=False)
+
+train_x = all_x[:TRAIN_SAMPLES]
+train_y = all_y[:TRAIN_SAMPLES]
+test_x = all_x[TRAIN_SAMPLES:total_needed]
+test_y = all_y[TRAIN_SAMPLES:total_needed]
 
 train_x = train_x.to(device)
 
