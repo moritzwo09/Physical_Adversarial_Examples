@@ -10,6 +10,7 @@ GroundingDINO/*
 # macOS system files
 .DS_Store
 code/64x64/*
+code/output/*
 
 /anmeldung-individualprohekt-moritz.pdf
 /meeting_19-01-26.pdf

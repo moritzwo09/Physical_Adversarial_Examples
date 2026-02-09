@@ -46,4 +46,4 @@ echo "=== Torch Check ==="
 python -c "import torch; print('Torch:', torch.__version__, '| CUDA Available:', torch.cuda.is_available())"
 
 # ==== Run script ====
-srun python "$HOME/code/segment_digital_images.py"
+srun python "$HOME/Physical_Adversarial_Examples/code/adversarial_patch_attack_split.py"
