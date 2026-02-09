@@ -33,7 +33,7 @@ class GTSRB(Dataset):
             self.class_to_color[clazz] = color
             self.class_to_shape[clazz] = shape
 
-        self.data = pd.read_csv(join(self.root, f"{'train' if train else 'test'}.csv"))
+        self.data = pd.read_csv(join(self.root, f"{'Train' if train else 'Test'}.csv"))
         self.paths = list(self.data["Path"])
         self.labels = list(self.data["ClassId"])
         self.transform = transform
