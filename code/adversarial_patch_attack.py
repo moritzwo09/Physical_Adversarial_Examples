@@ -101,7 +101,7 @@ attack = AdversarialPatchPyTorch(
 
 # learn one universal patch
 print("Lerne Patch...", flush=True)
-patch, patch_mask = attack.generate(x=x_np, y=y_np, mask=mask_imgs)
+patch, patch_mask = attack.generate(x=x_np, y=y_np, mask=mask_imgs, verbose=True)
 print(f"Patch gelernt. patch shape={patch.shape}, patch mask shape={patch_mask.shape}", flush=True)
 
 # apply patch to all images -> 64x64 output
