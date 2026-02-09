@@ -4,6 +4,7 @@ code/adversarial_patch_adv.pt
 
 # Python cache
 code/__pycache__/
+GroundingDINO/*
 
 .gitmodules
 # macOS system files
